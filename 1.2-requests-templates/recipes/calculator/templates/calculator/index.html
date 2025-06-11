@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Рецепт: {{ dish }}, {{ amount }} шт</title>
+</head>
+<body>
+    <h1>Блюдо: {{ dish }}</h1>
+    <h2>Количество порций: {{ amount }}</h2>
+    <h2>Ингредиенты:</h2>
+{% for ingredient, amount in recipe.items %}
+    <p>{{ ingredient }}: {{ amount }}</p>
+{% empty %}
+    <p>Такого рецепта не знаю :(</p>
+{% endfor %}
+    <a href="/">Домашняя страница</a>
+</body>
+</html>

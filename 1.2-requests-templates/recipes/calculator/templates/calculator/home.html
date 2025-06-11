@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Домашняя страница</title>
+</head>
+<body>
+    <h1>Домашняя страница</h1>
+    <h2>Выберите рецепт:</h2>
+    {% for title, url in pages.items %}
+        <a href="{{ url }}">{{ title }}</a>
+    {% endfor %}
+</body>
+</html>

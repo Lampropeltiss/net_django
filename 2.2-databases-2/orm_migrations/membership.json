@@ -1,0 +1,50 @@
+[
+{
+  "model": "school.membership",
+  "pk": 1,
+  "fields": {
+    "student_id": 1,
+    "teacher_id": 1
+  }
+},
+{
+  "model": "school.membership",
+  "pk": 2,
+  "fields": {
+    "student_id": 2,
+    "teacher_id": 1
+  }
+},
+{
+  "model": "school.membership",
+  "pk": 3,
+  "fields": {
+    "student_id": 3,
+    "teacher_id": 1
+  }
+},
+{
+  "model": "school.membership",
+  "pk": 4,
+  "fields": {
+    "student_id": 1,
+    "teacher_id": 2
+  }
+},
+{
+  "model": "school.membership",
+  "pk": 5,
+  "fields": {
+    "student_id": 2,
+    "teacher_id": 2
+  }
+},
+{
+  "model": "school.membership",
+  "pk": 6,
+  "fields": {
+    "student_id": 3,
+    "teacher_id": 3
+  }
+}
+]

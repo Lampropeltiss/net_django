@@ -38,16 +38,15 @@ class StockSerializer(serializers.ModelSerializer):
         # здесь вам надо заполнить связанные таблицы
         # в нашем случае: таблицу StockProduct
         # с помощью списка positions
-        print(f"{validated_data=}")
         for position in positions:
-            obj = StockProduct(
-                stock=stock,
-                price=position['price'],
-                product=position['product'],
-                quantity=position['quantity']
-            )
-            obj.save()
-
+            # obj = StockProduct(
+            #     stock=stock,
+            #     price=position['price'],
+            #     product=position['product'],
+            #     quantity=position['quantity']
+            # )
+            # obj.save()
+            StockProduct.objects.create(stock=stock, **position)
 
         return stock
 
@@ -61,5 +60,12 @@ class StockSerializer(serializers.ModelSerializer):
         # здесь вам надо обновить связанные таблицы
         # в нашем случае: таблицу StockProduct
         # с помощью списка positions
+        for position in positions:
+            product = position.pop('product')
+            StockProduct.objects.update_or_create(
+                stock=stock,
+                product=product,
+                defaults={'price': position.get('price'), 'quantity': position.get('quantity')}
+            )
 
         return stock

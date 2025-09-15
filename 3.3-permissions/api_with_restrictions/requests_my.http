@@ -1,0 +1,218 @@
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api
+@admin1Token = 6eabae26a16109fabcfd0655e864a873fddb32cc
+@admin2Token = fec06305c8534f06ffc12e752ac17fbfd8051100
+@user1Token = 91952ee1a32c4c7ba1144a9b135c1bcd7a4ecc98
+@user2Token = 31ff400e9a3faf1ff79529118bdfb3d9538591ab
+@s1 = OPEN
+@s2 = CLOSED
+
+# получение объявлений
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+
+### ----------------------------------------------------------------
+
+# создание объявления admin1
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{admin1Token}}
+
+{
+  "title": "Салфетки декоративные",
+  "description": "Без рисунка"
+}
+
+###
+
+# создание объявления admin2
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{admin2Token}}
+
+{
+  "title": "Тетради школьные",
+  "description": "48 листов, 8 предметов"
+}
+
+###
+
+# создание объявления user1
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{user1Token}}
+
+{
+  "title": "Набор отверток",
+  "description": "4 шт"
+}
+
+###
+
+# создание объявления user1
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{user1Token}}
+
+{
+  "title": "Конденсаторы",
+  "description": "12 шт"
+}
+
+###
+
+# создание объявления user1
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{user1Token}}
+
+{
+  "title": "Термопаста MX5",
+  "description": "MX5"
+}
+
+###
+
+# создание объявления user2
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{user2Token}}
+
+{
+  "title": "Сервиз «Страна Чудес»",
+  "description": "Фарфор, 12 предметов"
+}
+
+###
+
+### ----------------------------------------------------------------
+
+# попытка поменять объявление user
+PATCH {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+Authorization: Token {{user1Token}}
+
+{
+  "status": "{{s1}}"
+}
+
+###
+
+# попытка поменять объявление user
+PATCH {{baseUrl}}/advertisements/4/
+Content-Type: application/json
+Authorization: Token {{user2Token}}
+
+{
+  "status": "{{s2}}"
+}
+
+###
+
+# попытка поменять объявление OPEN admin
+PATCH {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+Authorization: Token {{admin2Token}}
+
+{
+  "status": "{{s1}}"
+}
+
+###
+
+# попытка поменять объявление CLOSED admin
+PATCH {{baseUrl}}/advertisements/15/
+Content-Type: application/json
+Authorization: Token {{admin2Token}}
+
+{
+  "status": "{{s2}}"
+}
+
+###
+
+### ----------------------------------------------------------------
+
+# фильтрация по создателю
+GET {{baseUrl}}/advertisements/?creator=3
+Content-Type: application/json
+
+### ----------------------------------------------------------------
+
+# фильтрация по дате before
+GET {{baseUrl}}/advertisements/?created_at_before=2025-09-10
+Content-Type: application/json
+
+###
+
+# фильтрация по дате after
+GET {{baseUrl}}/advertisements/?created_at_after=2025-09-13
+Content-Type: application/json
+
+### ----------------------------------------------------------------
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=OPEN
+Content-Type: application/json
+
+###
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=CLOSED
+Content-Type: application/json
+
+### ----------------------------------------------------------------
+
+# упорядочивание по статусу
+GET {{baseUrl}}/advertisements/?ordering=-status
+Content-Type: application/json
+
+###
+
+# упорядочивание по создателю
+GET {{baseUrl}}/advertisements/?ordering=creator
+Content-Type: application/json
+
+### ----------------------------------------------------------------
+
+# создание черновика admin1
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{user2Token}}
+
+{
+  "status": "DRAFT",
+  "title": "Тарелки декоративные",
+  "description": "С рисунком"
+}
+
+###
+
+# проверка фильтрации черновиков
+GET {{baseUrl}}/advertisements/?status=DRAFT
+Content-Type: application/json
+Authorization: Token {{admin1Token}}
+
+### ----------------------------------------------------------------
+
+# Favorites POST
+POST {{baseUrl}}/advertisements/1/favorites/
+Content-Type: application/json
+Authorization: Token {{user1Token}}
+
+###
+
+# Favorites DELETE
+DELETE {{baseUrl}}/advertisements/1/favorites/
+Content-Type: application/json
+Authorization: Token {{user1Token}}
+
+###
+
+# Favorites GET
+GET {{baseUrl}}/advertisements/favorites/
+Content-Type: application/json
+Authorization: Token {{user2Token}}
+
+###
